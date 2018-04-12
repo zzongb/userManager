@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tz.ssm.mapper.VisitRecordMapper">
+		
+		<resultMap type="VisitRecord" id="visitRecordMap">
+		<id property="id" column="id" />
+		<result property="visitDate" column="visitDate"/>
+		<result property="type" column="type" />
+		<result property="contact" column="contact" />
+		<result property="content" column="content" />
+		<association property="customer" javaType="customer" column="customer_id">
+			<id property="id" column="customer_id"/>
+		</association>
+		
+		</resultMap>
+		
+		<select id="findAllVisitRecordByCustomerId" parameterType="customer" resultMap="visitRecordMap">
+			select * from tbl_visitrecord where customer_id = #{id}
+		</select>
+		
+		<delete id="deleteVisitRecordByCustomerId" parameterType="customer" >
+			delete from tbl_visitrecord where customer_id = #{id}
+		</delete>
+		
+		<insert id="saveVisitRecord" parameterType="VisitRecord">
+			insert into tbl_visitrecord(id,visitDate,type,contact,content,customer_id) values(tbl_visitrecord_id.nextval,#{visitDate,jdbcType=DATE},#{type,jdbcType=VARCHAR},#{contact,jdbcType=VARCHAR},#{content,jdbcType=VARCHAR},#{customer.id,jdbcType=INTEGER})
+		</insert>
+
+</mapper>

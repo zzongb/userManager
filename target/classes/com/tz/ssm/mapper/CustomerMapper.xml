@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tz.ssm.mapper.CustomerMapper">
+
+	<!-- 保存一个新的客户信息 -->
+	<insert id="saveCustomer" parameterType="customer">
+		insert into tbl_customer values(tbl_customer_id.nextval,#{name},#{address},#{phone},#{fax},#{levels})
+	</insert>
+	
+	<!-- 查询指定id的客户信息 -->
+	<select id="findCustomerById" parameterType="int" resultType="customer">
+		select * from tbl_customer where id = #{id}
+	</select>
+	
+	<!-- 查询出所有的客户信息 -->
+	<select id="findAllCustomer" resultType="customer">
+		select * from tbl_customer
+	</select>
+	
+	<!-- 删除指定id的客户信息 -->
+	<delete id="deleteCustomer" parameterType="int">
+		delete from tbl_customer where id = #{id}
+	</delete>
+
+	<select id="findCustomerByName" parameterType="string" resultType="customer">
+		select * from tbl_customer where name = #{value}
+	</select>
+	
+
+</mapper>
